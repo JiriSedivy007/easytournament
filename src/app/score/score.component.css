@@ -1,0 +1,15 @@
+.score-card {
+    width: 600px;
+    margin: 0 auto;
+    
+  }
+.score {
+    font-size: 120px
+
+}  
+.checkbox-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
