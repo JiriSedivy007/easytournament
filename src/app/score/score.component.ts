@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+
 interface Post {
   teamA: number;
   teamB: number;
@@ -29,7 +30,6 @@ export class ScoreComponent implements OnInit {
 
   constructor(private afs: AngularFirestore) {
 
-
   }
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class ScoreComponent implements OnInit {
   }
 
 
-  changeScore(team: string, scoreChange: number) {
+  streamIt(action: string, team: string, scoreChange: number) {
 
     //stream
     var message: string;
@@ -49,32 +49,71 @@ export class ScoreComponent implements OnInit {
     var scoreB: number;
 
 
-    if (this.chboxStream) {
-      if (team == 'teamA') {
-        scoreA = parseFloat(document.querySelector('#teamA').innerHTML) + scoreChange;
-        scoreB = parseFloat(document.querySelector('#teamB').innerHTML);
+    switch (action) {
+      case 'changescore': {
 
-      } else {
-        scoreA = parseFloat(document.querySelector('#teamA').innerHTML);
-        scoreB = parseFloat(document.querySelector('#teamB').innerHTML) + scoreChange;
+        
+          if (team == 'teamA') {
+            scoreA = parseFloat(document.querySelector('#teamA').innerHTML) + scoreChange;
+            scoreB = parseFloat(document.querySelector('#teamB').innerHTML);
+
+          } else {
+            scoreA = parseFloat(document.querySelector('#teamA').innerHTML);
+            scoreB = parseFloat(document.querySelector('#teamB').innerHTML) + scoreChange;
+          }
+
+          message = scoreA + ' : ' + scoreB
+
+          this.afs.collection('tournaments').doc('wKpiItxWegkyoHn8OLyI').collection('matches').doc('1').collection('score').add({
+            message: [message],
+            timestamp: Date()
+          });
+
+
+        //score
+        this.postDoc.update({
+          [team]: [parseFloat(document.querySelector('#' + [team]).innerHTML) + scoreChange]
+        }
+        )
+        break;
+      };
+
+      case 'start': {
+        this.postDoc.update({
+          teamA: 0,
+          teamB: 0
+        }
+        );
+
+        this.afs.collection('tournaments').doc('wKpiItxWegkyoHn8OLyI').collection('matches').doc('1').collection('score').add({
+          message: 'Start',
+          timestamp: Date()
+        });
+
+        break;
       }
 
-      message = scoreA + ' : ' + scoreB
-      
-      this.afs.collection('tournaments').doc('wKpiItxWegkyoHn8OLyI').collection('matches').doc('1').collection('score').add({
-        message: [message],
-        timestamp: Date()
+      case 'finish': {
 
-      });
+        this.afs.collection('tournaments').doc('wKpiItxWegkyoHn8OLyI').collection('matches').doc('1').collection('score').add({
+          message: 'Finish',
+          timestamp: Date()
+        });
+
+        break;
+      }
+      case 'comment': {
+
+        this.afs.collection('tournaments').doc('wKpiItxWegkyoHn8OLyI').collection('matches').doc('1').collection('score').add({
+          message: [this.comment],
+          timestamp: Date()
+        });
+
+        this.comment = '';
+
+        break;
+      }
     }
-
-    //score
-    this.postDoc.update({
-      [team]: [parseFloat(document.querySelector('#' + [team]).innerHTML) + scoreChange]
-    }
-    )
-
-
 
 
 

@@ -13,3 +13,13 @@
     align-items: center;
     height: 60px;
   }
+
+.full-width {
+    width: 100%;
+  }
+
+.button-center {
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }

@@ -4,20 +4,20 @@
     <mat-card class="score-card">
       <mat-card-header>
         <mat-card-title>
-          <h1> Score</h1>
+          <!-- <h1> Score</h1> -->
         </mat-card-title>
-        <mat-card-subtitle>TeamA vs TeamB</mat-card-subtitle>
+        <!-- <mat-card-subtitle>TeamA vs TeamB</mat-card-subtitle> -->
       </mat-card-header>
 
       <mat-card-content>
         <p>
           <mat-grid-list cols="7" rowHeight="60px">
             <mat-grid-tile colspan=7 rowspan=1>
-              <button mat-raised-button color="accent" (click)="changeScore('teamA',1)"> Start </button>
+              <button mat-raised-button color="accent" (click)="streamIt('start','',0)"> Start </button>
             </mat-grid-tile>
 
             <mat-grid-tile colspan=1 rowspan=1>
-              <button mat-fab color="primary" (click)="changeScore('teamA',1)"> + </button>
+              <button mat-fab color="primary" (click)="streamIt('changescore','teamA',1)"> + </button>
             </mat-grid-tile>
 
             <mat-grid-tile colspan=2 rowspan=2>
@@ -33,26 +33,35 @@
             </mat-grid-tile>
 
             <mat-grid-tile colspan=1 rowspan=1>
-              <button mat-fab color="primary" (click)="changeScore('teamB',1)"> + </button>
+              <button mat-fab color="primary" (click)="streamIt('changescore','teamB',1)"> + </button>
             </mat-grid-tile>
 
 
             <mat-grid-tile colspan=1 rowspan=1>
-              <button mat-mini-fab (click)="changeScore('teamA',-1)"> - </button>
+              <button mat-mini-fab (click)="streamIt('changescore','teamA',-1)"> - </button>
             </mat-grid-tile>
 
             <mat-grid-tile colspan=1 rowspan=1>
-              <button mat-mini-fab (click)="changeScore('teamB',-1)"> - </button>
+              <button mat-mini-fab (click)="streamIt('changescore','teamB',-1)"> - </button>
             </mat-grid-tile>
 
             <mat-grid-tile colspan=7 rowspan=1>
-              <button mat-raised-button color="accent" (click)="changeScore('teamA',1)"> Finish </button>
+              <button mat-raised-button color="accent" (click)="streamIt('finish','',0)"> Finish </button>
             </mat-grid-tile>
           </mat-grid-list>
         </p>
-        <section class="checkbox-section">
-          <mat-checkbox class="example-margin" [(ngModel)]="chboxStream">Stream</mat-checkbox>
+
+        <mat-form-field class="full-width">
+          <textarea matInput placeholder="Comment" [(ngModel)]="comment"></textarea>
+        </mat-form-field>
+
+        <section class="button-center">
+          <button mat-raised-button (click)="streamIt('comment','',0)"> Post </button>
         </section>
+
+        <!-- <section class="checkbox-section">
+          <mat-checkbox class="example-margin" [(ngModel)]="chboxStream">Stream</mat-checkbox>
+        </section> -->
       </mat-card-content>
     </mat-card>
 

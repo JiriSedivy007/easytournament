@@ -40,7 +40,7 @@ export class StreamComponent {
   ngOnInit() {
     //this.postsCol = this.afs.collection('posts', ref => ref.where('title', '==', 'title'));
 
-    this.postsCol = this.afs.collection('tournaments').doc('wKpiItxWegkyoHn8OLyI').collection('matches').doc('1').collection('score',ref => ref.orderBy('timestamp','desc'));
+    this.postsCol = this.afs.collection('tournaments').doc('wKpiItxWegkyoHn8OLyI').collection('matches').doc('1').collection('score', ref => ref.orderBy('timestamp', 'desc'));
 
     this.posts = this.postsCol.snapshotChanges()
       .map(actions => {
@@ -54,7 +54,7 @@ export class StreamComponent {
 
 
 
- 
+
   /*
   getPost(postId) {
     console.warn(postId);
@@ -66,11 +66,6 @@ export class StreamComponent {
     this.afs.collection('tournaments').doc('wKpiItxWegkyoHn8OLyI').collection('matches').doc('1').collection('score').doc(postId).delete();
     return false;
   }
-
-  addPost() {
-
-  }
-
 }
 
 

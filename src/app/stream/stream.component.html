@@ -1,19 +1,38 @@
-
-<textarea [(ngModel)]="message" name = "message" placeholder="Add message.."></textarea>
-<input type = "submit" value = "Add" (click)="addPost()">
-
-<ul *ngFor="let post of posts | async">
-  
-    <li (click)="getPost(post.id)">
-    <strong> {{post.data.timestamp }} </strong> (<a href="#" (click)="deletePost(post.id)">delete</a>)
-    
-    <br>
-    {{post.data.message}}
-  </li>
-</ul>
+<!-- <textarea [(ngModel)]="message" name = "message" placeholder="Add message.."></textarea>
+<input type = "submit" value = "Add" (click)="addPost()"> -->
 
 
-<h1>Post:</h1>
+<mat-card class="score-card">
+    <mat-card-content>
+        <p>
+            <mat-grid-list cols="3" rowHeight="60px">
+
+
+                <ul *ngFor="let post of posts | async">
+
+                    <!-- <li (click)="getPost(post.id)"> -->
+
+
+                    <mat-grid-tile colspan=1 rowspan=1 item-width="10">
+                        {{post.data.timestamp | date:'mediumTime' }}
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan=1 rowspan=1 style.background = "lightgreen" item-width="80">
+                        <strong > {{post.data.message}} </strong>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan=1 rowspan=1 item-width="10">
+                        <a href="#" (click)="deletePost(post.id)">delete</a>
+                    </mat-grid-tile>
+
+
+
+                </ul>
+
+            </mat-grid-list>
+
+        </p>
+    </mat-card-content>
+</mat-card>
+<!-- <h1>Post:</h1>
 
 <h3>{{(post | async)?.timestamp}}</h3>
-<p>{{(post | async)?.message}}</p>
+<p>{{(post | async)?.message}}</p> -->
