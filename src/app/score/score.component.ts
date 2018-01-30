@@ -26,6 +26,7 @@ export class ScoreComponent implements OnInit {
   postDoc: AngularFirestoreDocument<Post>;
 
   chboxStream = false;
+  comment: string;
 
 
   constructor(private afs: AngularFirestore) {
